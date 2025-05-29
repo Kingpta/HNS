@@ -1,21 +1,30 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-// import { Button } from 'react-native-elements';
+import React from "react";
+// import HomePage from './shared/pages/HomePage'
+import Users from "./shared/pages/Users";
+import Firstgate from "./shared/component/Firstgate";
+import DetailsPage from "./shared/pages/DetailsPage";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+// import { FavoritesProvider } from "./shared/component/FavoriteContext";
+import { FavoritesProvider } from "./shared/component/FavouriteContext";
+import FavoritePage from "./shared/component/FavoritePage";
 
-export default function App() {
+const Stack = createNativeStackNavigator();
+
+const App = () => {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app </Text>
-      <StatusBar style="auto" />
-    </View>
+    <>
+      <FavoritesProvider>
+        <NavigationContainer>
+          <Stack.Navigator screenOptions={{ headerShown: false }}>
+            <Stack.Screen name="Users" component={Users} />
+            <Stack.Screen name="DetailsPage" component={DetailsPage} />
+            <Stack.Screen name="FavoritePage" component={FavoritePage} />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </FavoritesProvider>
+    </>
   );
-} b
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
