@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -11,15 +11,25 @@ import {
   KeyboardAvoidingView,
   Platform,
   TextInput,
+  Modal,
+  Alert,
 } from "react-native";
 import { Button } from "react-native-elements";
 import Icon from "react-native-vector-icons/FontAwesome";
- import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
- import { useNavigation } from "@react-navigation/native";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import { useNavigation } from "@react-navigation/native";
+import { useAppointments } from "../component/AppointmentContext";
+import DateTimePicker from "@react-native-community/datetimepicker";
 
 const DetailsPage = ({ route }) => {
   const navigation = useNavigation();
   const { items } = route.params || {};
+  const { addAppointment } = useAppointments();
+
+  const [modalVisible, setModalVisible] = useState(false);
+  const [appointmentDate, setAppointmentDate] = useState(new Date());
+  const [note, setNote] = useState("");
+  const [showDatePicker, setShowDatePicker] = useState(false);
 
   if (!items) {
     return (
@@ -28,6 +38,36 @@ const DetailsPage = ({ route }) => {
       </View>
     );
   }
+
+  const handleBookAppointment = () => {
+    setModalVisible(true);
+  };
+
+  const confirmAppointment = () => {
+    const appointment = {
+      propertyId: items.id,
+      propertyTitle: items.title || "Primary Apartment",
+      propertyImage: items.image,
+      agentId: items.agent?.id,
+      agentName: items.agent?.name || "Agent",
+      date: appointmentDate.toISOString(),
+      note: note,
+    };
+
+    addAppointment(appointment);
+    setModalVisible(false);
+    Alert.alert(
+      "Appointment Booked",
+      "Your appointment has been scheduled. You can view it in the Appointments tab.",
+      [{ text: "OK" }]
+    );
+  };
+
+  const onDateChange = (event, selectedDate) => {
+    const currentDate = selectedDate || appointmentDate;
+    setShowDatePicker(Platform.OS === "ios");
+    setAppointmentDate(currentDate);
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -44,21 +84,15 @@ const DetailsPage = ({ route }) => {
                 style={styles.undoBtn}
                 onPress={() => navigation.goBack()}
               >
-                <Icon name="undo" size={24} color="#87CEEB" />
+                <Icon name="arrow-left" size={20} color="#333" />
               </TouchableOpacity>
               <TouchableOpacity style={styles.loveBtn}>
                 <Icon
                   name="heart"
                   size={20}
-                  color="#87CEEB"
-                  style={styles.love}
+                  color="#FF5A5F"
                 />
               </TouchableOpacity>
-              <View style={styles.headerText}>
-                <Text style={styles.Title}>Apartment</Text>
-                {/* <Icon name="star" size={24} color="#87CEEB" /> */}
-                <Icon name="star" size={24} color="gold" />
-              </View>
             </View>
 
             <View style={styles.section}>
@@ -66,38 +100,26 @@ const DetailsPage = ({ route }) => {
                 {items.title || "Primary Apartment"}
               </Text>
               <Text style={styles.addressText}>
-                {items.address || "201 Odoguyan, Lasustech, Lagos"}
+                <Icon name="map-marker" size={14} color="#666" /> {items.address || "201 Odoguyan, Lasustech, Lagos"}
               </Text>
 
               <View style={styles.detailsRow}>
-                <Text>
-                  <MaterialCommunityIcons
-                    name="bed-empty"
-                    size={24}
-                    color="#eee"
-                  />{" "}
-                  3 Rooms
-                </Text>
-                <Text>
-                  <MaterialCommunityIcons
-                    name="toilet"
-                    size={24}
-                    color="#eee"
-                  />{" "}
-                  2 Bathrooms
-                </Text>
-                <Text>
-                  <MaterialCommunityIcons
-                    name="silverware-fork-knife"
-                    size={24}
-                    color="#eee"
-                  />{" "}
-                  1 Kitchen
-                </Text>
-                <Text>
-                  <MaterialCommunityIcons name="sofa" size={24} color="#eee" />{" "}
-                  1 Living Room
-                </Text>
+                <View style={styles.detailItem}>
+                  <MaterialCommunityIcons name="bed-empty" size={22} color="#4a90e2" />
+                  <Text style={styles.detailText}>3 Bedrooms</Text>
+                </View>
+                <View style={styles.detailItem}>
+                  <MaterialCommunityIcons name="toilet" size={22} color="#4a90e2" />
+                  <Text style={styles.detailText}>2 Bathrooms</Text>
+                </View>
+                <View style={styles.detailItem}>
+                  <MaterialCommunityIcons name="silverware-fork-knife" size={22} color="#4a90e2" />
+                  <Text style={styles.detailText}>1 Kitchen</Text>
+                </View>
+                <View style={styles.detailItem}>
+                  <MaterialCommunityIcons name="sofa" size={22} color="#4a90e2" />
+                  <Text style={styles.detailText}>1 Living Room</Text>
+                </View>
               </View>
             </View>
 
@@ -105,23 +127,25 @@ const DetailsPage = ({ route }) => {
               <Text style={styles.subTitle}>Listing Agent</Text>
               <View style={styles.agentDetails}>
                 <Image source={items.image} style={styles.agentImage} />
-                <View style={{ flex: 1 }}>
+                <View style={styles.agentInfo}>
                   <Text style={styles.agentName}>
-                    {items.agent.name || "Agent Name"}
+                    {items.agent?.name || "Agent Name"}
                   </Text>
-                  <Text>{items.phone || "08184594823"}</Text>
+                  <Text style={styles.agentPhone}>{items.phone || "08184594823"}</Text>
                 </View>
 
                 <View style={styles.actions}>
                   <TouchableOpacity
+                    style={styles.actionButton}
                     onPress={() => Linking.openURL(`tel:${items.phone}`)}
                   >
-                    <Icon name="phone" size={24} color="#87CEEB" />
+                    <Icon name="phone" size={20} color="#4a90e2" />
                   </TouchableOpacity>
                   <TouchableOpacity
+                    style={styles.actionButton}
                     onPress={() => Linking.openURL(`sms:${items.phone}`)}
                   >
-                    <Icon name="envelope" size={24} color="#87CEEB" />
+                    <Icon name="envelope" size={20} color="#4a90e2" />
                   </TouchableOpacity>
                 </View>
               </View>
@@ -148,15 +172,76 @@ const DetailsPage = ({ route }) => {
             </View>
           </ScrollView>
 
-          {/* Fixed Footer */}
+          {/* Appointment Modal */}
+          <Modal
+            animationType="slide"
+            transparent={true}
+            visible={modalVisible}
+            onRequestClose={() => setModalVisible(false)}
+          >
+            <View style={styles.modalOverlay}>
+              <View style={styles.modalContent}>
+                <Text style={styles.modalTitle}>Schedule Appointment</Text>
+
+                <Text style={styles.modalLabel}>Select Date & Time:</Text>
+                <TouchableOpacity
+                  style={styles.datePickerButton}
+                  onPress={() => setShowDatePicker(true)}
+                >
+                  <Text>{appointmentDate.toLocaleString()}</Text>
+                </TouchableOpacity>
+
+                {showDatePicker && (
+                  <DateTimePicker
+                    value={appointmentDate}
+                    mode="datetime"
+                    display="default"
+                    onChange={onDateChange}
+                    minimumDate={new Date()}
+                  />
+                )}
+
+                <Text style={styles.modalLabel}>Note (Optional):</Text>
+                <TextInput
+                  style={styles.noteInput}
+                  multiline
+                  numberOfLines={3}
+                  value={note}
+                  onChangeText={setNote}
+                  placeholder="Add any specific requirements or questions..."
+                />
+
+                <View style={styles.modalButtons}>
+                  <TouchableOpacity
+                    style={[styles.modalButton, styles.cancelButton]}
+                    onPress={() => setModalVisible(false)}
+                  >
+                    <Text style={styles.buttonText}>Cancel</Text>
+                  </TouchableOpacity>
+
+                  <TouchableOpacity
+                    style={[styles.modalButton, styles.confirmButton]}
+                    onPress={confirmAppointment}
+                  >
+                    <Text style={styles.buttonText}>Confirm</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            </View>
+          </Modal>
+
+          {/* Footer */}
           <View style={styles.footer}>
-            <View style={{ flex: 1 }}>
-              <Text style={styles.subTitle}>Price</Text>
-              <Text>{items.price || "$166"}/year</Text>
+            <View style={styles.priceContainer}>
+              <Text style={styles.priceLabel}>Price</Text>
+              <Text style={styles.priceValue}>${items.price || "166"}/year</Text>
             </View>
-            <View style={{ flex: 1 }}>
-              <Button title="Buy" buttonStyle={styles.button} />
-            </View>
+            <TouchableOpacity
+              style={styles.appointmentButton}
+              onPress={handleBookAppointment}
+            >
+              <Text style={styles.buttonText}>Book Appointment</Text>
+            </TouchableOpacity>
           </View>
         </View>
       </KeyboardAvoidingView>
@@ -180,7 +265,6 @@ const styles = StyleSheet.create({
     position: "relative",
   },
   scrollContent: {
-    // paddingHorizontal: 16,
     paddingBottom: 120, // extra space for footer
   },
   header: {
@@ -191,123 +275,156 @@ const styles = StyleSheet.create({
   image: {
     width: "100%",
     height: 300,
-    borderRadius: 12,
+    borderRadius: 0, // Remove border radius for a cleaner look
     position: "relative",
   },
   headerText: {
     flexDirection: "row",
     justifyContent: "space-between",
-    marginTop: 8,
+    marginTop: 16,
     width: "100%",
     paddingHorizontal: 16,
     alignItems: "center",
   },
   Title: {
-    fontSize: 24,
+    fontSize: 26,
     fontWeight: "bold",
+    color: "#333",
+    letterSpacing: 0.5,
   },
   section: {
-    marginVertical: 0,
+    marginVertical: 8,
     padding: 16,
-    paddingBottom: 10,
-    fontSize: 10,
+    paddingBottom: 16,
+    borderBottomWidth: 1,
+    borderBottomColor: "#f0f0f0",
   },
   subTitle: {
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: "bold",
-    marginBottom: 8,
+    marginBottom: 12,
+    color: "#333",
   },
   addressText: {
-    fontSize: 11,
-    color: "#555",
+    fontSize: 14,
+    color: "#666",
+    marginBottom: 8,
+    letterSpacing: 0.2,
   },
   detailsRow: {
-    marginTop: 5,
+    marginTop: 16,
     flexDirection: "row",
     justifyContent: "space-between",
     flexWrap: "wrap",
   },
+  detailItem: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 12,
+    width: "48%",
+  },
+  detailText: {
+    marginLeft: 8,
+    fontSize: 15,
+    color: "#444",
+  },
   agentName: {
     fontSize: 18,
     fontWeight: "bold",
+    color: "#333",
   },
   agentDetails: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 10,
+    backgroundColor: "#f9f9f9",
+    padding: 12,
+    borderRadius: 8,
+    marginTop: 8,
   },
   agentImage: {
-    width: 50,
-    height: 50,
-    borderRadius: 25,
-    marginRight: 10,
-    fontSize: 18,
-    fontWeight: "bold",
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    marginRight: 16,
+  },
+  agentInfo: {
+    flex: 1,
+  },
+  agentPhone: {
+    fontSize: 14,
+    color: "#666",
+    marginTop: 4,
   },
   actions: {
     flexDirection: "row",
-    gap: 12,
+    gap: 16,
+  },
+  actionButton: {
+    backgroundColor: "#f0f0f0",
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    justifyContent: "center",
+    alignItems: "center",
   },
   description: {
     fontSize: 16,
-    color: "#333",
-    lineHeight: 22,
+    color: "#444",
+    lineHeight: 24,
+    letterSpacing: 0.3,
   },
   button: {
-    backgroundColor: "#87CEEB",
-    paddingVertical: 10,
-    paddingHorizontal: 20,
+    backgroundColor: "#4a90e2",
+    paddingVertical: 12,
+    paddingHorizontal: 24,
     borderRadius: 8,
+    elevation: 2,
   },
   undoBtn: {
-    left: 10,
-    marginTop: 30,
-    marginRight: 10,
-    backgroundColor: "#fff",
-    borderRadius: 50,
-    padding: 5,
+    left: 16,
+    top: 16,
+    backgroundColor: "rgba(255, 255, 255, 0.9)",
+    borderRadius: 24,
+    padding: 8,
     elevation: 4,
     shadowColor: "#000",
-    shadowOpacity: 0.1,
-    shadowOffset: { width: 0, height: 4 },
-    shadowRadius: 8,
+    shadowOpacity: 0.2,
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 4,
     position: "absolute",
+    zIndex: 10,
   },
   loveBtn: {
-    right: 10,
-    marginTop: 30,
-    marginRight: 10,
-    backgroundColor: "#fff",
-    borderRadius: 50,
-    padding: 5,
+    right: 16,
+    top: 16,
+    backgroundColor: "rgba(255, 255, 255, 0.9)",
+    borderRadius: 24,
+    padding: 8,
     elevation: 4,
     shadowColor: "#000",
-    shadowOpacity: 0.1,
-    shadowOffset: { width: 0, height: 4 },
-    shadowRadius: 8,
+    shadowOpacity: 0.2,
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 4,
     position: "absolute",
+    zIndex: 10,
   },
   imageGrid: {
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "space-between",
+    marginTop: 12,
   },
-
   imageWrapper: {
     width: "32%", // 3 images in a row
-    aspectRatio: 1, 
-    marginBottom: 10,
+    aspectRatio: 1,
+    marginBottom: 8,
     borderRadius: 8,
     overflow: "hidden",
-    backgroundColor: "#eee", // just in case image doesn't load
   },
-
   subImage: {
     width: "100%",
     height: "100%",
-    borderRadius: 8,
   },
-
   footer: {
     width: "100%",
     position: "absolute",
@@ -316,9 +433,61 @@ const styles = StyleSheet.create({
     right: 0,
     padding: 16,
     backgroundColor: "#fff",
-    // borderTopWidth: 1,
-    borderTopColor: "#ddd",
+    borderTopWidth: 1,
+    borderTopColor: "#eee",
     flexDirection: "row",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: -3,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 3,
+    elevation: 5,
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  priceContainer: {
+    flex: 1,
+  },
+  priceLabel: {
+    fontSize: 14,
+    color: "#666",
+  },
+  priceValue: {
+    fontSize: 22,
+    fontWeight: "bold",
+    color: "#333",
+  },
+  footerButtons: {
+    flex: 2,
+    flexDirection: "row",
+    justifyContent: "flex-end",
+    gap: 12,
+  },
+  appointmentButton: {
+    backgroundColor: "#4CAF50",
+    borderRadius: 8,
+    paddingVertical: 12,
+    paddingHorizontal: 24,
+    elevation: 2,
+  },
+  buttonText: {
+    color: "#fff",
+    fontWeight: "bold",
+    fontSize: 16,
+  },
+  modalOverlay: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0,0,0,0.5)",
+  },
+  modalContent: {
+    width: "80%",
+    backgroundColor: "white",
+    borderRadius: 10,
+    padding: 20,
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -327,9 +496,52 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
+  },
+  modalTitle: {
+    fontSize: 18,
+    fontWeight: "bold",
+    marginBottom: 15,
+    textAlign: "center",
+  },
+  modalLabel: {
+    fontSize: 16,
+    marginBottom: 5,
+    marginTop: 10,
+  },
+  datePickerButton: {
+    padding: 10,
+    borderWidth: 1,
+    borderColor: "#ddd",
+    borderRadius: 5,
+  },
+  noteInput: {
+    borderWidth: 1,
+    borderColor: "#ddd",
+    borderRadius: 5,
+    padding: 10,
+    marginTop: 5,
+    textAlignVertical: "top",
+  },
+  modalButtons: {
+    flexDirection: "row",
     justifyContent: "space-between",
+    marginTop: 20,
+  },
+  modalButton: {
+    padding: 10,
+    borderRadius: 5,
+    width: "45%",
     alignItems: "center",
-    // flex: 1,
+  },
+  cancelButton: {
+    backgroundColor: "#f44336",
+  },
+  confirmButton: {
+    backgroundColor: "#4CAF50",
+  },
+  buttonText: {
+    color: "white",
+    fontWeight: "bold",
   },
 });
 

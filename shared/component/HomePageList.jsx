@@ -22,19 +22,41 @@ const HomePageList = ({ items }) => {
   return (
     <TouchableOpacity onPress={() => navigation.navigate("DetailsPage", { items })}>
       <View style={styles.card}>
-        <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+        <View style={{ position: "relative" }}>
           <Image source={items.image} style={styles.image} />
           <Icon
             name={isFavorited(items.id) ? "heart" : "heart-o"}
             size={20}
-            color="#87CEEB"
+            color={isFavorited(items.id) ? "#FF5A5F" : "#87CEEB"}
             style={styles.love}
             onPress={toggleFavorite}
           />
         </View>
         <Text style={styles.cardPrice}>${items.price}</Text>
-        <Text style={styles.cardLocation}>{items.location}</Text>
-        <Text style={styles.cardDescription}>{items.description}</Text>
+        <Text style={styles.cardLocation}>
+          <Icon name="map-marker" size={12} color="#666" /> {items.location}
+        </Text>
+        
+        <View style={styles.divider} />
+        
+        <View style={styles.propertyInfo}>
+          <View style={styles.propertyFeature}>
+            <Icon name="bed" size={12} color="#666" />
+            <Text style={styles.featureText}>3 Beds</Text>
+          </View>
+          <View style={styles.propertyFeature}>
+            <Icon name="bath" size={12} color="#666" />
+            <Text style={styles.featureText}>2 Baths</Text>
+          </View>
+          <View style={styles.propertyFeature}>
+            <Icon name="arrows" size={12} color="#666" />
+            <Text style={styles.featureText}>1200 sqft</Text>
+          </View>
+        </View>
+        
+        <Text style={styles.cardDescription} numberOfLines={2}>
+          {items.description}
+        </Text>
       </View>
     </TouchableOpacity>
   );
@@ -44,32 +66,7 @@ const HomePageList = ({ items }) => {
 
 const styles = StyleSheet.create({
   container: {
-    // width: 100,
-  },
-  cardPrice: {
-    fontSize: 20,
-    fontWeight: "bold",
-    marginTop: 10,
-    marginLeft: 10,
-  },
-  cardLocation: {
-    fontSize: 16,
-    marginTop: 5,
-    marginLeft: 10,
-    color: "#888",
-  },
-  cardDescription: {
-    fontSize: 14,
-    marginTop: 5,
-    marginBottom: 5,
-    marginLeft: 10,
-    color: "#000",
-  },
-
-  image: {
-    width: "100%",
-    height: 140,
-    position: "relative",
+    flex: 1,
   },
   card: {
     width: 250,
@@ -81,9 +78,38 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowOffset: { width: 0, height: 4 },
     shadowRadius: 8,
-    // height: 200,
     marginRight: 20,
-    flex: 1,
+    marginBottom: 10,
+    borderWidth: 0.5,
+    borderColor: "#f0f0f0",
+  },
+  image: {
+    width: "100%",
+    height: 160,
+    position: "relative",
+  },
+  cardPrice: {
+    fontSize: 20,
+    fontWeight: "bold",
+    marginTop: 12,
+    marginLeft: 12,
+    color: "#333",
+  },
+  cardLocation: {
+    fontSize: 14,
+    marginTop: 4,
+    marginLeft: 12,
+    color: "#666",
+    fontWeight: "500",
+  },
+  cardDescription: {
+    fontSize: 13,
+    marginTop: 6,
+    marginBottom: 12,
+    marginLeft: 12,
+    marginRight: 12,
+    color: "#777",
+    lineHeight: 18,
   },
   love: {
     right: 10,
@@ -91,13 +117,36 @@ const styles = StyleSheet.create({
     marginRight: 10,
     backgroundColor: "#fff",
     borderRadius: 50,
-    padding: 5,
+    padding: 8,
     elevation: 4,
     shadowColor: "#000",
     shadowOpacity: 0.1,
-    shadowOffset: { width: 0, height: 4 },
-    shadowRadius: 8,
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 4,
     position: "absolute",
+    zIndex: 10,
+  },
+  propertyInfo: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginHorizontal: 12,
+    marginTop: 8,
+    marginBottom: 8,
+  },
+  propertyFeature: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  featureText: {
+    fontSize: 12,
+    color: "#666",
+    marginLeft: 4,
+  },
+  divider: {
+    height: 1,
+    backgroundColor: "#f0f0f0",
+    marginHorizontal: 12,
+    marginVertical: 8,
   },
 });
 

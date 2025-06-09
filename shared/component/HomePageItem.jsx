@@ -10,155 +10,119 @@ import {
   Linking,
 } from "react-native";
 import SecondGate from "./SecondGate";
-import DetailsPage from "../pages/DetailsPage";
+import { 
+  getRecommendedProperties, 
+  getFirstGateProperties, 
+  getSecondGateProperties,
+  getPropertyWithAgentDetails
+} from "../data/propertyData";
 
-const HomePageItem = ({mattch, navigation}) => {
-  const house = [
-    {
-      id: 1,
-      image: require("../../images/pic1.jpeg"),
-      price: 179,
-      location: "First Gate, Ikorodu , opposite fastech",
-      description: "2bedroom , pop, runway",
-      agent: {
-        id: "a1",
-        name: "Adeniji Odunola",
-        phone: "123-456-7890",
-        profileImage: "url-to-image",
-      },
-    },
-    {
-      id: 2,
-      mt: "a2",
-      image: require("../../images/pic2.jpeg"),
-      price: 200,
-      location: "Second Gate, Ikorodu , opposite fastech",
-      description: "3bedroom , pop, runway",
-      agent: {
-        id: "a1",
-        name: "Akerele Abiola",
-        phone: "123-456-7890",
-        profileImage: "url-to-image",
-      },
-    },
-    {
-      id: 3,
-      image: require("../../images/pic3.jpeg"),
-      price: 150,
-      location: "Third Gate, Ikorodu , opposite fastech",
-      description: "1bedroom , pop, runway",
-      agent: {
-        id: "a1",
-        name: "Baby Scott",
-        phone: "123-456-7890",
-        profileImage: "url-to-image",
-      },
-    },
-    {
-      id: 4,
-      image: require("../../images/pic4.jpeg"),
-      price: 300,
-      location: "Fourth Gate, Ikorodu , opposite fastech",
-      description: "4bedroom , pop, runway",
-
-    },
-    {
-      id: 5,
-      image: require("../../images/pic5.jpeg"),
-      price: 250,
-      location: "Fifth Gate, Ikorodu , opposite fastech",
-      description: "5bedroom , pop, runway",
-    },
-  ];
-
-  const Matching = () =>{
-    house.map((apt) => {
-      if (mattch.mt === apt.mt) {
-        house.push(mattch)
-      }
-    })
-  }
-
-  // Matching()
- 
+const HomePageItem = ({ navigation }) => {
+  // Get data from our centralized data source
+  const recommendedProperties = getRecommendedProperties();
+  const firstGateProperties = getFirstGateProperties();
+  const secondGateProperties = getSecondGateProperties();
+  
+  // Add agent details to each property for display
+  const recommendedWithAgents = recommendedProperties.map(property => 
+    getPropertyWithAgentDetails(property.id)
+  );
+  
   return (
     <View>
-      {/* Header */}
-      <View style={styles.header}>
-        <Text style={styles.headerText}>Recommended</Text>
-        <TouchableOpacity onPress={() => Linking.openURL("#")}>
-          <Text style={styles.link}>See More</Text>
-        </TouchableOpacity>
+      {/* Recommended Section */}
+      <View style={styles.sectionContainer}>
+        <View style={styles.header}>
+          <Text style={styles.headerText}>Recommended</Text>
+          <TouchableOpacity onPress={() => Linking.openURL("#")}>
+            <Text style={styles.link}>See All</Text>
+          </TouchableOpacity>
+        </View>
+
+        <FlatList
+          data={recommendedWithAgents}
+          renderItem={({ item }) => <HomePageList items={item} />}
+          keyExtractor={(item) => item.id.toString()}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={styles.listContainer}
+        />
       </View>
 
-      {/* HomePageList cards */}
-      <FlatList
-        data={house}
-        renderItem={({ item }) => <HomePageList items={item} />}
-        keyExtractor={(item) => item.id.toString()}
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        contentContainerStyle={{ paddingHorizontal: 20 }}
-      />
+      <View style={styles.sectionDivider} />
 
-      {/* Firstgate cards */}
-      <View>
+      {/* Firstgate Section */}
+      <View style={styles.sectionContainer}>
         <View style={styles.header}>
           <Text style={styles.headerText}>Firstgate</Text>
           <TouchableOpacity onPress={() => Linking.openURL("#")}>
-            <Text style={styles.link}>See More</Text>
+            <Text style={styles.link}>See All</Text>
           </TouchableOpacity>
         </View>
 
         <FlatList
-          data={house}
-          renderItem={({ item }) => <Firstgate items={item} />}
+          data={firstGateProperties}
+          renderItem={({ item }) => <Firstgate items={getPropertyWithAgentDetails(item.id)} />}
           keyExtractor={(item) => item.id.toString()}
           horizontal
           showsHorizontalScrollIndicator={false}
-          contentContainerStyle={{ paddingHorizontal: 20, marginTop: 20 }}
+          contentContainerStyle={styles.listContainer}
         />
       </View>
 
-      {/* Secondgate cards */}
-      <View>
+      <View style={styles.sectionDivider} />
+
+      {/* Secondgate Section */}
+      <View style={styles.sectionContainer}>
         <View style={styles.header}>
           <Text style={styles.headerText}>Secondgate</Text>
           <TouchableOpacity onPress={() => Linking.openURL("#")}>
-            <Text style={styles.link}>See More</Text>
+            <Text style={styles.link}>See All</Text>
           </TouchableOpacity>
         </View>
 
         <FlatList
-          data={house}
-          renderItem={({ item }) => <SecondGate items={item} />}
+          data={secondGateProperties}
+          renderItem={({ item }) => <SecondGate items={getPropertyWithAgentDetails(item.id)} />}
           keyExtractor={(item) => item.id.toString()}
           horizontal
           showsHorizontalScrollIndicator={false}
-          contentContainerStyle={{ paddingHorizontal: 20, marginTop: 20 }}
+          contentContainerStyle={styles.listContainer}
         />
-
-        
       </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  sectionContainer: {
+    marginBottom: 24,
+  },
   header: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    padding: 20,
-    paddingBottom: 0,
+    paddingHorizontal: 20,
+    paddingBottom: 12,
   },
   headerText: {
-    fontSize: 20,
+    fontSize: 22,
     fontWeight: "bold",
+    color: "#333",
+    letterSpacing: 0.3,
   },
   link: {
-    color: "#87CEEB",
-    textDecorationLine: "underline",
+    color: "#4a90e2",
+    fontSize: 14,
+    fontWeight: "600",
+  },
+  listContainer: {
+    paddingLeft: 20,
+  },
+  sectionDivider: {
+    height: 8,
+    backgroundColor: "#f5f5f5",
+    marginVertical: 16,
   },
 });
 

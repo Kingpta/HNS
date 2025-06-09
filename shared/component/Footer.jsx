@@ -1,21 +1,17 @@
-import React from "react";
-import { View, TouchableOpacity, StyleSheet,Text } from "react-native";
-import Icon from "react-native-vector-icons/FontAwesome";
-import { KeyboardAvoidingView } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import React from 'react';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import { useNavigation } from '@react-navigation/native';
 
-
-import { Platform } from "react-native";
 const Footer = () => {
   const navigation = useNavigation();
 
-
   return (
-    <View style={styles.footer} >
-      <TouchableOpacity style={styles.iconContainer} onPress={() => {
-        // Add navigation logic here if needed  
-        navigation.navigate("Users");
-      }}>
+    <View style={styles.footer}>
+      <TouchableOpacity 
+        style={styles.iconContainer} 
+        onPress={() => navigation.navigate("Users")}
+      >
         <Icon style={styles.icon} name="home" size={24} />
         <Text style={styles.iconText}>Home</Text>
       </TouchableOpacity>
@@ -28,9 +24,12 @@ const Footer = () => {
         <Text style={styles.iconText}>Saved</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.iconContainer}>
+      <TouchableOpacity style={styles.iconContainer} onPress={() => {
+        navigation.navigate("AppointmentsPage");
+      }}>
+
         <Icon style={styles.icon} name="envelope-o" size={24} />
-        <Text style={styles.iconText}>Messages</Text>
+        <Text style={styles.iconText}>Appointments</Text>
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.iconContainer}>

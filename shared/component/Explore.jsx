@@ -11,44 +11,52 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import { Button } from "react-native-elements";
 
 const Explore = () => {
-  return <>
+  return (
     <View style={styles.container}>
-     <Icon name="search" size={20} color="#4F8EF7" />
+      <Icon name="search" size={20} style={styles.searchIcon} />
       <TextInput
         style={styles.input}
-        placeholder=" Search for properties..."
-        placeholderTextColor="#888 "
+        placeholder="Search for properties..."
+        placeholderTextColor="#999"
       />
-      {/* <TouchableOpacity style={styles.button} onPress={() => Alert.alert("Search")}>
-        <Text style={styles.buttonText}>Search</Text>
-      </TouchableOpacity> */}
+      <TouchableOpacity style={styles.filterButton}>
+        <Icon name="sliders" size={20} color="#666" />
+      </TouchableOpacity>
     </View>
-  </>
+  );
 }
 
 const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
-    borderColor: "#ccc",
+    borderColor: "#e0e0e0",
     borderWidth: 1,
     alignItems: "center",
     borderRadius: 30,
-    paddingHorizontal: 10,
-    marginBottom: 0,
-    height: 40,
-    justifyContent: "start",
-    marginRight: 20,
-    marginLeft: 20,
-    marginBottom: 0,
+    paddingHorizontal: 16,
+    marginHorizontal: 20,
+    marginVertical: 16,
+    height: 50,
+    backgroundColor: "#f9f9f9",
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.05,
+    shadowRadius: 2,
+    elevation: 1,
+  },
+  searchIcon: {
+    marginRight: 10,
+    color: "#666",
   },
   input: {
-    fontSize: 18,
-    height: 40,
-    // borderColor: "#ccc",
-    // borderWidth: 1,
-    borderRadius: 30,
-    paddingHorizontal: 10,
-    marginBottom: 0,
+    flex: 1,
+    fontSize: 16,
+    color: "#333",
+    height: 50,
+  },
+  filterButton: {
+    padding: 8,
+    marginLeft: 8,
   },
   button: {
     backgroundColor: "#87CEEB",
