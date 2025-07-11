@@ -1,6 +1,5 @@
 import React from "react";
 import Users from "./shared/pages/Users";
-import Firstgate from "./shared/component/Firstgate";
 import DetailsPage from "./shared/pages/DetailsPage";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";

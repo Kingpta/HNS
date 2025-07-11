@@ -23,7 +23,7 @@ const Header = ({ agent }) => {
             <Text style={styles.agentName}>{agent.name}</Text>
           </View>
         </View>
-        
+
         <View style={styles.headerActions}>
           <TouchableOpacity style={styles.iconButton}>
             <Icon name="bell" size={20} color="#333" />
@@ -31,7 +31,7 @@ const Header = ({ agent }) => {
               <Text style={styles.badgeText}>3</Text>
             </View>
           </TouchableOpacity>
-          
+
           <TouchableOpacity style={styles.iconButton}>
             <Icon name="envelope" size={20} color="#333" />
             <View style={styles.notificationBadge}>
@@ -40,22 +40,30 @@ const Header = ({ agent }) => {
           </TouchableOpacity>
         </View>
       </View>
-      
+
       <View style={styles.tabsContainer}>
         <TouchableOpacity style={[styles.tab, styles.activeTab]}>
           <Text style={[styles.tabText, styles.activeTabText]}>Dashboard</Text>
         </TouchableOpacity>
-        
-        <TouchableOpacity style={styles.tab} onPress={() => navigation.navigate("agentListingsPage")}>
+
+        <TouchableOpacity
+          style={styles.tab}
+          onPress={() => navigation.navigate("agentListingsPage")}
+        >
           <Text style={styles.tabText}>Listings</Text>
         </TouchableOpacity>
-        
+
         <TouchableOpacity style={styles.tab}>
           <Text style={styles.tabText}>Appointments</Text>
         </TouchableOpacity>
-        
+
         <TouchableOpacity style={styles.tab}>
           <Text style={styles.tabText}>Profile</Text>
+        </TouchableOpacity>
+      </View>
+      <View>
+        <TouchableOpacity onPress={() => navigation.navigate("Users")}>
+          Login/Signup
         </TouchableOpacity>
       </View>
     </View>
