@@ -37,7 +37,7 @@ const Firstgate = ({ items }) => {
             />
           </TouchableOpacity>
           <View style={styles.priceBadge}>
-            <Text style={styles.priceText}>${items.price}</Text>
+            <Text style={styles.priceText}>{items.price}</Text>
           </View>
         </View>
         

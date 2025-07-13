@@ -32,7 +32,7 @@ const HomePageList = ({ items }) => {
             onPress={toggleFavorite}
           />
         </View>
-        <Text style={styles.cardPrice}>${items.price}</Text>
+        <Text style={styles.cardPrice}>{items.price}</Text>
         <Text style={styles.cardLocation}>
           <Icon name="map-marker" size={12} color="#666" /> {items.location}
         </Text>

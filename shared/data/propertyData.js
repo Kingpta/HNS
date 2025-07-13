@@ -31,7 +31,7 @@ export const properties = [
   {
     id: 1,
     image: require("../../images/pic1.jpeg"),
-    price: 179,
+    price: "₦100,000",
     location: "First Gate, Ikorodu, opposite fastech",
     description: "2 bedroom, pop ceiling, runway",
     agentId: "a1",
@@ -39,12 +39,12 @@ export const properties = [
     featured: true,
     bedrooms: 2,
     bathrooms: 1,
-    amenities: ["Kitchen", "Parking", "Security"]
+    amenities: ["Kitchen", "Parking", "Security"],
   },
   {
     id: 2,
     image: require("../../images/pic2.jpeg"),
-    price: 200,
+    price: "₦200,000",
     location: "Second Gate, Ikorodu, opposite fastech",
     description: "3 bedroom, pop ceiling, runway",
     agentId: "a2",
@@ -52,12 +52,12 @@ export const properties = [
     featured: true,
     bedrooms: 3,
     bathrooms: 2,
-    amenities: ["Kitchen", "Parking", "Security", "Swimming Pool"]
+    amenities: ["Kitchen", "Parking", "Security", "Swimming Pool"],
   },
   {
     id: 3,
     image: require("../../images/pic3.jpeg"),
-    price: 150,
+    price: "₦150,000",
     location: "Third Gate, Ikorodu, opposite fastech",
     description: "1 bedroom, pop ceiling, runway",
     agentId: "a3",
@@ -65,12 +65,12 @@ export const properties = [
     featured: false,
     bedrooms: 1,
     bathrooms: 1,
-    amenities: ["Kitchen", "Security"]
+    amenities: ["Kitchen", "Security"],
   },
   {
     id: 4,
     image: require("../../images/pic4.jpeg"),
-    price: 300,
+    price: "₦300,000",
     location: "Fourth Gate, Ikorodu, opposite fastech",
     description: "4 bedroom, pop ceiling, runway",
     agentId: "a1",
@@ -78,12 +78,12 @@ export const properties = [
     featured: true,
     bedrooms: 4,
     bathrooms: 3,
-    amenities: ["Kitchen", "Parking", "Security", "Gym"]
+    amenities: ["Kitchen", "Parking", "Security", "Gym"],
   },
   {
     id: 5,
     image: require("../../images/pic5.jpeg"),
-    price: 250,
+    price: "₦250,000",
     location: "Fifth Gate, Ikorodu, opposite fastech",
     description: "5 bedroom, pop ceiling, runway",
     agentId: "a2",
@@ -91,12 +91,12 @@ export const properties = [
     featured: false,
     bedrooms: 5,
     bathrooms: 3,
-    amenities: ["Kitchen", "Parking", "Security", "Garden"]
+    amenities: ["Kitchen", "Parking", "Security", "Garden"],
   },
   {
     id: 6,
     image: require("../../images/pic1.jpeg"),
-    price: 220,
+    price: "₦220,000",
     location: "First Gate, Ikorodu, near market",
     description: "3 bedroom, modern design",
     agentId: "a3",
@@ -104,12 +104,12 @@ export const properties = [
     featured: true,
     bedrooms: 3,
     bathrooms: 2,
-    amenities: ["Kitchen", "Parking", "Security", "Balcony"]
+    amenities: ["Kitchen", "Parking", "Security", "Balcony"],
   },
   {
     id: 7,
     image: require("../../images/pic2.jpeg"),
-    price: 185,
+    price: "₦185,000",
     location: "Second Gate, Ikorodu, main road",
     description: "2 bedroom, newly built",
     agentId: "a1",
@@ -117,8 +117,8 @@ export const properties = [
     featured: false,
     bedrooms: 2,
     bathrooms: 2,
-    amenities: ["Kitchen", "Security", "Garden"]
-  }
+    amenities: ["Kitchen", "Security", "Garden"],
+  },
 ];
 
 // Helper functions

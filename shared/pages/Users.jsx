@@ -20,15 +20,7 @@ import {
 // import AppLoading from "expo-app-loading";
 
 const Users = () => {
-  //  const [fontsLoaded] = useFonts({
-  //    Poppins_400Regular,
-  //    Poppins_700Bold,
-  //  });
-
-  //  if (!fontsLoaded) {
-  //    return <AppLoading />; // Or null while loading
-  //  }
-
+ 
   return (
     <SafeAreaView style={styles.container}>
       <KeyboardAvoidingView

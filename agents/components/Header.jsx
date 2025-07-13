@@ -63,7 +63,7 @@ const Header = ({ agent }) => {
       </View>
       <View>
         <TouchableOpacity onPress={() => navigation.navigate("Users")}>
-          Login/Signup
+          <Text>Login/Signup</Text>
         </TouchableOpacity>
       </View>
     </View>
