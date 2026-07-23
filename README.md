@@ -1,51 +1,35 @@
-For a 10–15 second PNUT video, I’d make it a tiny story rather than trying to explain the project. Your peanut mascot is already visually strong: sunglasses, sneakers, gloves and the PNUT chain.
+Create a cinematic 18–20 second animated short using the uploaded PNUT mascot image as the exact main-character reference.
 
-Story: “From One Peanut to the Moon”
+CHARACTER CONSISTENCY IS CRITICAL:
+Keep PNUT recognizable in every shot. He is an anthropomorphic peanut with a realistic textured peanut-shell body, black pixelated deal-with-it sunglasses, expressive cartoon eyes and mouth when visible, white cartoon gloves, red-and-white sneakers, and a gold chain with a PNUT pendant. Do not redesign or replace the character. Maintain the same proportions, clothing, face, accessories and personality throughout the entire video.
 
-0–4 sec — The beginning
-PNUT is sitting alone on a sidewalk looking broke, holding an empty wallet. Camera slowly pushes toward him.
+STORY:
 
-Narrator:
+SHOT 1 — 0–4 SECONDS:
+Nighttime in a cinematic city street during light rain. PNUT sits alone outside a closed convenience store, looking discouraged. His pockets are empty. Pedestrians pass in the blurred background without noticing him. Reflections from streetlights shimmer on the wet pavement. Begin with a wide establishing shot, then slowly push the camera toward PNUT.
 
-“They said he was just a peanut…”
+SHOT 2 — 4–8 SECONDS:
+A mysterious glowing golden peanut rolls across the wet pavement and stops directly in front of PNUT's red sneakers. PNUT looks surprised, bends down and picks it up. Golden light illuminates his face. His PNUT necklace begins glowing and his pixel sunglasses flash dramatically. The music begins to rise.
 
-4–9 sec — Transformation
-PNUT looks up. The scene rapidly transforms into a futuristic launch site. He puts on his pixel sunglasses, stands up and walks confidently toward a rocket marked PNUT.
+SHOT 3 — 8–13 SECONDS:
+As PNUT stands, a wave of golden energy travels outward from him. The dark street transforms into a spectacular futuristic PNUT city filled with glowing signs, skyscrapers, lights and energetic peanut mascots. PNUT walks forward confidently while other peanut characters emerge and join him. Dynamic tracking camera, energetic cinematic transformation.
 
-Narrator:
+SHOT 4 — 13–18 SECONDS:
+PNUT reaches the rooftop of a skyscraper overlooking the futuristic city. Hundreds of peanut characters gather in the streets below. PNUT raises the glowing golden peanut above his head. The crowd celebrates. Camera circles around PNUT while the skyline glows behind him. Make the moment triumphant and emotional.
 
-“But PNUT wasn’t made to stay small.”
-
-9–15 sec — Finale
-The rocket launches. Cut to PNUT standing on the Moon, planting a PNUT flag while Earth glows behind him.
-
-Narrator:
-
-“One community. One mission. PNUT to the moon.”
-
-That gives you a proper beginning → transformation → payoff within 15 seconds without making claims about guaranteed returns.
-
-Image-to-video prompt
-
-Upload your PNUT character image as the visual reference and use something along these lines:
-
-Create a fast-paced 15-second cinematic animated crypto mascot commercial using the provided PNUT peanut character as the exact character reference. Maintain his recognizable peanut-shell body, black pixel sunglasses, white cartoon gloves, red-and-white sneakers and gold PNUT necklace throughout every shot.
-
-Opening: PNUT sits alone on a gritty city sidewalk looking discouraged, holding an empty wallet. Slow dramatic camera push-in.
-
-Transition: PNUT raises his head confidently and adjusts his pixel sunglasses. The environment transforms dramatically into a futuristic nighttime rocket launch facility. PNUT walks confidently toward a large rocket branded “PNUT” while lights illuminate the launch pad.
-
-Finale: dramatic rocket launch through clouds into space. Cinematic match cut to PNUT standing proudly on the Moon with Earth glowing behind him. PNUT plants a black flag displaying the PNUT branding and points toward Earth.
-
-Premium 3D animated commercial, humorous meme energy mixed with epic cinematic filmmaking, expressive character animation, dramatic lighting, smooth camera movement, fast transitions, high detail, consistent character proportions and appearance. Vertical 9:16 social-media composition.
-
-One change I’d make if the generator struggles: don’t generate all 15 seconds in one prompt. Make three ~5-second clips separately using the same PNUT reference image. Character consistency usually comes out much better.
-
-Also, add the actual PNUT logo/text in your editor afterward if possible. AI video generators can turn “PNUT” into random letters as the character or camera moves.
-
-For an X/Reels crypto promo, I think the strongest closing screen would simply be:
+SHOT 5 — 18–20 SECONDS:
+Camera rapidly pulls backward and upward into the night sky, revealing that thousands of golden city lights form the shape of a giant peanut when viewed from above. End on a clean cinematic title card:
 
 PNUT
-FROM SMALL BEGINNINGS. BIG ENERGY.
+SMALL NUT. BIG STORY.
 
-rather than showing fake price charts or promising that people will “get rich.”
+VISUAL STYLE:
+Premium cinematic 3D animation, polished advertising quality, humorous meme personality mixed with an emotional underdog story, highly detailed peanut-shell textures, dramatic lighting, volumetric atmosphere, realistic rain and reflections, smooth character animation, expressive body language, shallow depth of field, cinematic camera movement, strong contrast between the gloomy opening and colorful triumphant ending.
+
+FORMAT:
+Vertical 9:16 composition designed for X, TikTok, Telegram and Instagram Reels.
+Fast pacing but every scene must remain readable.
+Smooth cinematic transitions between shots.
+No random characters replacing PNUT.
+No distorted hands, duplicated limbs or changing accessories.
+Do not alter the PNUT mascot design.
